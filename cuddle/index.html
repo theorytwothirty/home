@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#120b1c">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Find consent-first platonic cuddle puddles near you now.">
+<title>Puddle</title>
+<style>
+:root{
+  --ink:#fffaf8;
+  --muted:#c9bdca;
+  --dim:#8e8292;
+  --fill:#100a18;
+  --deep:#08050d;
+  --card:rgba(35,23,42,.82);
+  --soft:rgba(255,255,255,.075);
+  --line:rgba(255,255,255,.12);
+  --hot:#ff6f91;
+  --warm:#ffab76;
+  --pop:#cf8cff;
+  --mint:#7ee6c5;
+  --bad:#ff6a79;
+  --good:#7ee6c5;
+  --shade:0 24px 70px rgba(0,0,0,.38);
+  --round:1.55rem;
+  --tap:3.35rem;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--ink);
+  background:var(--deep);
+}
+*{box-sizing:border-box}
+html{min-height:100%;background:var(--deep);scroll-behavior:smooth}
+body{margin:0;min-height:100dvh;background:
+  radial-gradient(circle at 18% -8%,rgba(207,140,255,.2),transparent 34rem),
+  radial-gradient(circle at 92% 18%,rgba(255,111,145,.16),transparent 28rem),
+  linear-gradient(180deg,#160d20 0%,#0d0813 52%,#08050d 100%);
+  color:var(--ink);overflow-x:hidden;-webkit-tap-highlight-color:transparent
+}
+button,input,select,textarea{font:inherit;color:inherit}
+button{border:0;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:.18rem solid var(--mint);outline-offset:.18rem}
+button:disabled{opacity:.42;cursor:not-allowed}
+input,select,textarea{width:100%;border:1px solid var(--line);background:rgba(8,5,13,.72);border-radius:1rem;padding:.92rem 1rem;min-height:var(--tap);outline:none}
+textarea{min-height:7rem;resize:vertical;line-height:1.45}
+input::placeholder,textarea::placeholder{color:#94899a}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 1.15rem) 50%,calc(100% - .8rem) 50%;background-size:.36rem .36rem,.36rem .36rem;background-repeat:no-repeat;padding-right:2.5rem}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(2.45rem,11vw,4.7rem);line-height:.98;letter-spacing:-.065em;margin-bottom:1rem}
+h2{font-size:clamp(1.55rem,6vw,2.25rem);line-height:1.08;letter-spacing:-.035em}
+h3{font-size:1.08rem;line-height:1.2}
+p{line-height:1.5}
+a{color:inherit}
+svg{display:block}
+.off{display:none!important}
+.sr{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.sky{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
+.orb{position:absolute;width:22rem;height:22rem;border-radius:50%;filter:blur(3rem);opacity:.13;animation:drift 16s ease-in-out infinite alternate}
+.orb.one{background:var(--pop);left:-11rem;top:20%}
+.orb.two{background:var(--hot);right:-13rem;top:42%;animation-delay:-7s}
+.orb.three{background:var(--warm);left:35%;bottom:-16rem;animation-delay:-11s}
+@keyframes drift{to{transform:translate3d(2rem,-2rem,0) scale(1.14)}}
+.app{width:min(100%,61rem);margin:auto;min-height:100dvh;padding:0 clamp(.85rem,3vw,1.4rem) calc(6.5rem + env(safe-area-inset-bottom))}
+.head{position:sticky;top:0;z-index:20;min-height:4.8rem;padding:calc(.55rem + env(safe-area-inset-top)) .15rem .55rem;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:.5rem;background:linear-gradient(180deg,rgba(16,10,24,.96) 0%,rgba(16,10,24,.82) 72%,transparent 100%);backdrop-filter:blur(1rem);-webkit-backdrop-filter:blur(1rem)}
+.mark{display:flex;align-items:center;justify-content:center;gap:.48rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:.82rem}
+.logo{position:relative;width:2rem;height:1.6rem}
+.logo i{position:absolute;display:block;border-radius:50%;background:linear-gradient(135deg,var(--warm),var(--hot) 55%,var(--pop));box-shadow:0 0 1.15rem rgba(255,111,145,.46)}
+.logo i:nth-child(1){width:1rem;height:1rem;left:.05rem;top:.42rem}
+.logo i:nth-child(2){width:1.08rem;height:1.08rem;right:.04rem;top:.08rem}
+.logo i:nth-child(3){width:.9rem;height:.9rem;left:.66rem;bottom:.02rem}
+.loc,.icon{min-height:2.85rem;border:1px solid var(--line);background:rgba(255,255,255,.055);border-radius:999px;backdrop-filter:blur(.8rem)}
+.loc{justify-self:start;max-width:100%;display:flex;align-items:center;gap:.48rem;padding:.45rem .76rem;text-align:left;font-size:.82rem;font-weight:800;overflow:hidden}
+.loc span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.loc b{width:.58rem;height:.58rem;border-radius:50%;background:var(--mint);box-shadow:0 0 .8rem var(--mint);flex:0 0 auto}
+.icon{justify-self:end;width:2.85rem;padding:0;display:grid;place-items:center;font-size:1.22rem}
+.page{display:none;animation:rise .28s ease both}
+.page.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(.5rem)}to{opacity:1;transform:none}}
+.hero{padding:clamp(1.1rem,5vw,2.6rem) .15rem 1.4rem}
+.eyebrow{display:flex;align-items:center;gap:.52rem;margin:0 0 .75rem;color:var(--warm);font-size:.78rem;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+.eyebrow i{width:.55rem;height:.55rem;border-radius:50%;background:var(--hot);box-shadow:0 0 1rem var(--hot);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.5);opacity:.58}}
+.lead{max-width:42rem;color:var(--muted);font-size:clamp(1rem,3.3vw,1.18rem);margin-bottom:1.15rem}
+.row{display:flex;align-items:center;gap:.7rem}
+.row.wrap{flex-wrap:wrap}
+.grow{flex:1;min-width:0}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:2.65rem;padding:.5rem .9rem;border:1px solid var(--line);background:rgba(255,255,255,.055);border-radius:999px;font-size:.84rem;font-weight:800;white-space:nowrap}
+.pill.hot{background:linear-gradient(135deg,rgba(255,111,145,.22),rgba(207,140,255,.17));border-color:rgba(255,151,178,.4)}
+.pill.good{color:#cffff0;border-color:rgba(126,230,197,.36);background:rgba(126,230,197,.1)}
+.btn{min-height:var(--tap);padding:.7rem 1.05rem;border-radius:1rem;background:linear-gradient(135deg,var(--warm),var(--hot) 54%,var(--pop));color:#160814;font-weight:950;box-shadow:0 .8rem 2.2rem rgba(255,111,145,.2);transition:transform .16s ease,filter .16s ease}
+.btn:active,.chip:active,.see:active,.nav button:active,.icon:active,.loc:active{transform:scale(.96)}
+.btn.alt{color:var(--ink);background:rgba(255,255,255,.08);border:1px solid var(--line);box-shadow:none}
+.btn.good{background:linear-gradient(135deg,#9af4d8,var(--mint));color:#06251d}
+.btn.bad{background:rgba(255,106,121,.12);border:1px solid rgba(255,106,121,.35);color:#ffd5db;box-shadow:none}
+.btn.wide{width:100%}
+.map{position:relative;isolation:isolate;min-height:clamp(18.5rem,65vw,26rem);border:1px solid var(--line);border-radius:2rem;overflow:hidden;background:
+  radial-gradient(circle at center,rgba(255,255,255,.07) 0 1px,transparent 2px),
+  linear-gradient(135deg,rgba(207,140,255,.12),rgba(255,111,145,.07) 48%,rgba(126,230,197,.08));
+  background-size:1.2rem 1.2rem,auto;box-shadow:var(--shade);margin:.4rem 0 1.2rem}
+.map:before,.map:after{content:"";position:absolute;inset:50% auto auto 50%;translate:-50% -50%;border:1px solid rgba(255,255,255,.12);border-radius:50%;z-index:-1}
+.map:before{width:57%;aspect-ratio:1}
+.map:after{width:92%;aspect-ratio:1}
+.ring{position:absolute;left:50%;top:50%;width:22%;aspect-ratio:1;border:1px solid rgba(255,171,118,.45);border-radius:50%;translate:-50% -50%;animation:wave 2.8s ease-out infinite;z-index:-1}
+.ring.two{animation-delay:-1.4s}
+@keyframes wave{0%{scale:.5;opacity:.85}100%{scale:4;opacity:0}}
+.you{position:absolute;left:50%;top:50%;translate:-50% -50%;width:3.15rem;height:3.15rem;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--warm),var(--hot));border:.22rem solid rgba(255,255,255,.88);box-shadow:0 0 0 .65rem rgba(255,111,145,.12),0 0 2.2rem rgba(255,111,145,.5);font-weight:950;color:#2d0b1b;z-index:3}
+.spot{position:absolute;width:3.15rem;height:3.15rem;border-radius:50%;padding:0;border:.16rem solid rgba(255,255,255,.72);background:#392541;box-shadow:0 .5rem 1.5rem rgba(0,0,0,.32);display:grid;place-items:center;font-weight:950;color:white;transition:transform .18s ease}
+.spot:active{transform:scale(.92)}
+.spot small{position:absolute;left:50%;top:calc(100% + .28rem);translate:-50% 0;padding:.2rem .38rem;border-radius:.5rem;background:rgba(8,5,13,.82);font-size:.65rem;color:var(--ink);white-space:nowrap;border:1px solid var(--line)}
+.spot.one{left:14%;top:21%}.spot.two{right:12%;top:18%}.spot.three{left:11%;bottom:16%}.spot.four{right:15%;bottom:13%}.spot.five{right:34%;top:8%}
+.tone1{background:linear-gradient(135deg,#ff9d76,#dc5f91)!important}.tone2{background:linear-gradient(135deg,#76d9ff,#8171e8)!important}.tone3{background:linear-gradient(135deg,#8ee2b6,#4da58e)!important}.tone4{background:linear-gradient(135deg,#f9c86c,#e68c51)!important}.tone5{background:linear-gradient(135deg,#dca0ff,#8c66cc)!important}.tone6{background:linear-gradient(135deg,#ff8cb8,#b65c96)!important}
+.mapnote{position:absolute;left:1rem;right:1rem;bottom:1rem;display:flex;align-items:end;justify-content:space-between;gap:.8rem;pointer-events:none}
+.mapnote p{margin:0;max-width:13rem;color:var(--muted);font-size:.72rem;line-height:1.35}
+.mapnote span{background:rgba(8,5,13,.75);border:1px solid var(--line);padding:.42rem .65rem;border-radius:999px;font-size:.68rem;font-weight:850;backdrop-filter:blur(.7rem)}
+.tools{display:flex;gap:.55rem;overflow:auto;padding:.2rem .05rem .9rem;scrollbar-width:none}
+.tools::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;min-height:2.75rem;padding:.55rem .9rem;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.045);font-size:.82rem;font-weight:850;color:var(--muted)}
+.chip.on{color:#190a18;background:linear-gradient(135deg,var(--warm),var(--hot));border-color:transparent}
+.title{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin:1rem .15rem .85rem}
+.title h2{margin:0}
+.title p{margin:0;color:var(--dim);font-size:.8rem;text-align:right}
+.list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20.5rem),1fr));gap:.9rem}
+.card{position:relative;padding:1rem;border:1px solid var(--line);border-radius:var(--round);background:linear-gradient(145deg,rgba(45,29,52,.92),rgba(24,15,30,.9));box-shadow:0 1.1rem 3rem rgba(0,0,0,.18);overflow:hidden}
+.card:before{content:"";position:absolute;width:8rem;height:8rem;border-radius:50%;right:-3rem;top:-4rem;background:var(--pop);filter:blur(2.4rem);opacity:.11;pointer-events:none}
+.avatar{position:relative;width:3.35rem;height:3.35rem;border-radius:1.1rem;display:grid;place-items:center;flex:0 0 auto;font-size:1.22rem;font-weight:950;border:1px solid rgba(255,255,255,.2)}
+.avatar i{position:absolute;right:-.15rem;bottom:-.15rem;width:.85rem;height:.85rem;border-radius:50%;background:var(--mint);border:.18rem solid #26182e}
+.card h3{margin:0 0 .24rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{color:var(--muted);font-size:.78rem;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.when{margin-left:auto;flex:0 0 auto;color:#ffe1d0;background:rgba(255,171,118,.11);border:1px solid rgba(255,171,118,.22);font-size:.68rem;font-weight:900;padding:.27rem .43rem;border-radius:.5rem}
+.copy{margin:.9rem 0 .8rem;color:#e6dbe7;font-size:.9rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.7rem}
+.tags{display:flex;flex-wrap:wrap;gap:.38rem;min-height:1.75rem}
+.tag{display:inline-flex;align-items:center;min-height:1.65rem;padding:.22rem .48rem;border-radius:.5rem;background:var(--soft);border:1px solid rgba(255,255,255,.075);color:var(--muted);font-size:.68rem;font-weight:800}
+.foot{margin-top:.9rem;padding-top:.82rem;border-top:1px solid rgba(255,255,255,.08)}
+.faces{display:flex;padding-left:.25rem}
+.faces span{width:1.55rem;height:1.55rem;margin-left:-.28rem;border-radius:50%;display:grid;place-items:center;background:#4b3553;border:.13rem solid #25172d;font-size:.58rem;font-weight:900}
+.count{font-size:.72rem;color:var(--muted);margin-right:auto}
+.see{min-height:2.8rem;padding:.55rem .8rem;border-radius:.85rem;background:rgba(255,255,255,.09);border:1px solid var(--line);font-size:.78rem;font-weight:900}
+.empty{padding:2.5rem 1.2rem;border:1px dashed rgba(255,255,255,.16);border-radius:var(--round);text-align:center;color:var(--muted);background:rgba(255,255,255,.025)}
+.empty b{display:block;color:var(--ink);font-size:1.08rem;margin-bottom:.4rem}
+.banner{padding:1.2rem;border-radius:var(--round);background:linear-gradient(135deg,rgba(255,171,118,.16),rgba(255,111,145,.15),rgba(207,140,255,.12));border:1px solid rgba(255,171,118,.25);margin:1rem 0}
+.banner h2{margin-bottom:.55rem}.banner p{color:var(--muted);margin-bottom:1rem}
+.panel{padding:1rem;border-radius:var(--round);background:var(--card);border:1px solid var(--line);margin:.8rem 0}
+.panel h3{margin-bottom:.35rem}.panel p{margin-bottom:0;color:var(--muted);font-size:.88rem}
+.form{display:grid;gap:.8rem}
+.field{display:grid;gap:.38rem}
+.field label,.label{color:#eadfeb;font-size:.78rem;font-weight:850}
+.field small{color:var(--dim);font-size:.72rem;line-height:1.35}
+.check{display:flex;align-items:flex-start;gap:.72rem;padding:.78rem;border:1px solid var(--line);border-radius:1rem;background:rgba(255,255,255,.035);cursor:pointer}
+.check input{width:1.3rem;height:1.3rem;min-height:0;padding:0;accent-color:var(--hot);flex:0 0 auto;margin:.08rem 0 0}
+.check span{font-size:.86rem;line-height:1.35}.check b{display:block;margin-bottom:.15rem}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:.75rem}
+.code{display:grid;gap:.55rem;margin-top:.7rem}
+.code li{list-style:none;display:flex;gap:.65rem;color:var(--muted);font-size:.84rem;line-height:1.42}
+.code b{flex:0 0 auto;width:1.55rem;height:1.55rem;display:grid;place-items:center;border-radius:50%;background:rgba(126,230,197,.12);color:var(--mint)}
+.thread{width:100%;padding:.82rem;border:1px solid var(--line);border-radius:1.1rem;background:rgba(255,255,255,.04);text-align:left;display:flex;align-items:center;gap:.75rem}
+.thread .avatar{width:3rem;height:3rem;border-radius:50%}
+.thread h3{margin:0 0 .22rem}.thread p{margin:0;color:var(--muted);font-size:.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.thread time{color:var(--dim);font-size:.67rem;align-self:flex-start;margin-left:auto}
+.nav{position:fixed;left:50%;bottom:max(.65rem,env(safe-area-inset-bottom));translate:-50% 0;z-index:30;width:min(calc(100% - 1.2rem),37rem);display:grid;grid-template-columns:repeat(4,1fr);gap:.25rem;padding:.34rem;border:1px solid rgba(255,255,255,.13);border-radius:1.4rem;background:rgba(19,12,27,.88);box-shadow:0 1.2rem 3rem rgba(0,0,0,.42);backdrop-filter:blur(1.25rem);-webkit-backdrop-filter:blur(1.25rem)}
+.nav button{min-height:3.7rem;border-radius:1.05rem;background:transparent;color:var(--dim);display:grid;place-items:center;gap:.08rem;padding:.35rem;font-size:.66rem;font-weight:850}
+.nav button b{display:block;font-size:1.15rem;line-height:1}
+.nav button.on{color:var(--ink);background:linear-gradient(135deg,rgba(255,171,118,.16),rgba(255,111,145,.16),rgba(207,140,255,.14));box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.veil{position:fixed;inset:0;z-index:50;background:rgba(4,2,7,.66);backdrop-filter:blur(.3rem);opacity:0;pointer-events:none;transition:opacity .2s ease}
+.veil.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;z-index:60;left:50%;bottom:0;translate:-50% 110%;width:min(100%,42rem);max-height:min(91dvh,54rem);overflow:auto;overscroll-behavior:contain;padding:1rem 1rem calc(1rem + env(safe-area-inset-bottom));border:1px solid var(--line);border-bottom:0;border-radius:2rem 2rem 0 0;background:linear-gradient(180deg,#281830,#130c1a 35%);box-shadow:0 -2rem 6rem rgba(0,0,0,.55);transition:translate .28s cubic-bezier(.2,.85,.24,1)}
+.sheet.on{translate:-50% 0}
+.grab{width:3rem;height:.28rem;background:rgba(255,255,255,.23);border-radius:999px;margin:.1rem auto 1rem}
+.sheethead{display:flex;align-items:flex-start;gap:.8rem;margin-bottom:1rem}
+.sheethead h2{margin:0}.sheethead p{margin:.3rem 0 0;color:var(--muted);font-size:.84rem}
+.close{margin-left:auto;flex:0 0 auto;width:2.8rem;height:2.8rem;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid var(--line);font-size:1.2rem}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(8rem,1fr));gap:.6rem;margin:.8rem 0}
+.stat{padding:.75rem;border-radius:1rem;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08)}
+.stat small{display:block;color:var(--dim);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;font-weight:850;margin-bottom:.25rem}.stat b{font-size:.88rem}
+.host{display:flex;align-items:center;gap:.75rem;padding:.75rem 0}.host .avatar{border-radius:50%}.host p{margin:0;color:var(--muted);font-size:.78rem}
+.rule{display:flex;align-items:flex-start;gap:.6rem;padding:.55rem 0;color:var(--muted);font-size:.84rem}.rule b{color:var(--mint)}
+.bar{position:sticky;bottom:-1rem;margin:1rem -1rem -1rem;padding:.85rem 1rem calc(.85rem + env(safe-area-inset-bottom));display:flex;gap:.65rem;background:linear-gradient(180deg,transparent,rgba(19,12,26,.94) 26%);backdrop-filter:blur(.65rem)}
+.bar .btn{flex:1}
+.msgs{display:flex;flex-direction:column;gap:.55rem;min-height:14rem;max-height:48dvh;overflow:auto;padding:.2rem .1rem 1rem}
+.msg{max-width:82%;padding:.68rem .82rem;border-radius:1.05rem 1.05rem 1.05rem .3rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.07);line-height:1.42;font-size:.86rem;align-self:flex-start;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.mine{align-self:flex-end;border-radius:1.05rem 1.05rem .3rem 1.05rem;background:linear-gradient(135deg,rgba(255,171,118,.26),rgba(255,111,145,.23));border-color:rgba(255,151,178,.25)}
+.talkform{display:flex;gap:.55rem}.talkform input{min-width:0}.talkform button{flex:0 0 auto;width:3.35rem;border-radius:1rem;background:linear-gradient(135deg,var(--warm),var(--hot));color:#250c19;font-weight:950}
+.gate{position:fixed;inset:0;z-index:100;display:grid;place-items:end center;padding:1rem;background:
+  radial-gradient(circle at 20% 10%,rgba(207,140,255,.25),transparent 28rem),
+  radial-gradient(circle at 90% 44%,rgba(255,111,145,.22),transparent 27rem),
+  linear-gradient(180deg,#170d21,#08050d);overflow:auto}
+.gate.off{display:none!important}
+.gatebox{width:min(100%,35rem);padding:clamp(1.15rem,5vw,2rem);border:1px solid var(--line);border-radius:2rem;background:rgba(31,19,38,.83);box-shadow:var(--shade);backdrop-filter:blur(1.2rem);margin:auto}
+.gatebox .mark{justify-content:flex-start;margin-bottom:1.4rem}.gatebox h1{font-size:clamp(2.55rem,12vw,4rem)}
+.gatebox .lead{font-size:.95rem}.gateact{display:grid;gap:.65rem;margin-top:1rem}
+.note{padding:.72rem .8rem;border-radius:.9rem;background:rgba(126,230,197,.075);border:1px solid rgba(126,230,197,.15);color:#cceee3;font-size:.72rem;line-height:1.4}
+.toast{position:fixed;z-index:120;left:50%;bottom:6.6rem;translate:-50% 1rem;width:min(calc(100% - 2rem),30rem);padding:.8rem 1rem;border:1px solid rgba(255,255,255,.16);border-radius:1rem;background:rgba(24,15,31,.94);box-shadow:var(--shade);opacity:0;pointer-events:none;transition:.2s ease;color:var(--ink);font-size:.83rem;text-align:center;backdrop-filter:blur(1rem)}
+.toast.on{opacity:1;translate:-50% 0}
+.plain{position:fixed;inset:0;z-index:200;background:#f4f2ec;color:#27251f;padding:calc(1rem + env(safe-area-inset-top)) 1rem 1rem;display:none;overflow:auto;font-family:Georgia,serif}
+.plain.on{display:block}.plainmain{width:min(100%,46rem);margin:auto}.plain h1{letter-spacing:-.04em;font-size:3rem}.plain textarea{background:white;color:#27251f;border-color:#d7d2c7;min-height:55dvh}.plain button{margin-top:2rem;background:transparent;color:#77716a;text-decoration:underline}
+.alert{position:fixed;z-index:130;inset:0;display:none;place-items:center;padding:1rem;background:rgba(4,2,7,.82)}
+.alert.on{display:grid}.alertbox{width:min(100%,30rem);padding:1.4rem;border-radius:1.5rem;background:#2b1829;border:1px solid rgba(255,111,145,.35);box-shadow:var(--shade);text-align:center}.alertbox b{display:block;font-size:1.25rem;margin-bottom:.5rem}.alertbox p{color:var(--muted)}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true"><i class="orb one"></i><i class="orb two"></i><i class="orb three"></i></div>
+
+<section id="gate" class="gate" aria-labelledby="gatetitle">
+  <div class="gatebox">
+    <div class="mark"><span class="logo" aria-hidden="true"><i></i><i></i><i></i></span><span>Puddle</span></div>
+    <p class="eyebrow"><i></i>Adults only · platonic by default</p>
+    <h1 id="gatetitle">Soft people.<br>Clear boundaries.</h1>
+    <p class="lead">Find a nearby consent-first cuddle circle—or host one. Discovery shows only approximate distance. Exact meeting details stay hidden until a host approves you.</p>
+    <div class="form">
+      <label class="check"><input id="ageok" type="checkbox"><span><b>I am at least 18.</b>This prototype is strictly for adults.</span></label>
+      <label class="check"><input id="yesok" type="checkbox"><span><b>I will ask before every new kind of touch.</b>Silence, freezing, intoxication, or prior consent never count as a current yes.</span></label>
+      <label class="check"><input id="locok" type="checkbox"><span><b>I understand the location rule.</b>No exact home or venue address belongs in public listings.</span></label>
+    </div>
+    <div class="gateact">
+      <button id="enter" class="btn wide" type="button" disabled>Use my location</button>
+      <button id="demo" class="btn alt wide" type="button" disabled>Enter the San Francisco demo</button>
+    </div>
+    <p class="note">This single-file build stores everything on this browser. Demo hosts and their replies are clearly labeled simulations; there is no identity verification or emergency service behind this prototype.</p>
+  </div>
+</section>
+
+<div id="app" class="app">
+  <header class="head">
+    <button id="loc" class="loc" type="button" aria-label="Change approximate location"><b></b><span id="loctext">SF demo</span></button>
+    <div class="mark" aria-label="Puddle"><span class="logo" aria-hidden="true"><i></i><i></i><i></i></span><span>Puddle</span></div>
+    <button id="quick" class="icon" type="button" aria-label="Quick exit to notes">↗</button>
+  </header>
+
+  <main>
+    <section id="near" class="page on" aria-labelledby="neartitle">
+      <div class="hero">
+        <p class="eyebrow"><i></i><span id="livecopy">Puddles warming up near you</span></p>
+        <h1 id="neartitle">Find your<br>soft landing.</h1>
+        <p class="lead">Small, platonic group hangs with boundaries visible before you ask to join.</p>
+        <div class="row wrap"><span class="pill hot">● Live now</span><span class="pill good">Consent first</span><button id="newtop" class="pill" type="button">＋ Host one</button></div>
+      </div>
+
+      <div class="map" aria-label="Approximate nearby cuddle puddles">
+        <i class="ring"></i><i class="ring two"></i>
+        <div class="you" aria-label="Your approximate location">YOU</div>
+        <button id="spot1" class="spot one tone1" type="button"><span>M</span><small>0.4 mi</small></button>
+        <button id="spot2" class="spot two tone2" type="button"><span>J</span><small>0.9 mi</small></button>
+        <button id="spot3" class="spot three tone3" type="button"><span>A</span><small>1.4 mi</small></button>
+        <button id="spot4" class="spot four tone4" type="button"><span>R</span><small>2.1 mi</small></button>
+        <button id="spot5" class="spot five tone5" type="button"><span>K</span><small>2.7 mi</small></button>
+        <div class="mapnote"><p>Dots are deliberately offset. Hosts reveal exact details only after approval.</p><span id="radcopy">Within 5 miles</span></div>
+      </div>
+
+      <div class="tools" aria-label="Discovery filters">
+        <button id="fitall" class="chip on" type="button">All nearby</button>
+        <button id="fitnow" class="chip" type="button">Happening now</button>
+        <button id="fitpub" class="chip" type="button">Public place</button>
+        <button id="fitsob" class="chip" type="button">Sober</button>
+        <button id="fitcal" class="chip" type="button">Quiet vibe</button>
+        <button id="morefit" class="chip" type="button">Radius ＋</button>
+      </div>
+
+      <div class="title"><h2>Near you now</h2><p id="count">0 puddles</p></div>
+      <div id="list" class="list"></div>
+      <div id="noevent" class="empty off"><b>No puddles match that filter.</b>Try a wider radius or host the one you wish existed.</div>
+    </section>
+
+    <section id="plan" class="page" aria-labelledby="plantitle">
+      <div class="hero">
+        <p class="eyebrow"><i></i>Host with care</p>
+        <h1 id="plantitle">Make room<br>for softness.</h1>
+        <p class="lead">Set the vibe, capacity, place type, and touch menu before anyone asks to join.</p>
+      </div>
+      <div class="banner">
+        <h2>Host a puddle</h2>
+        <p>Your public listing uses only a neighborhood or broad area. Share exact details privately after reviewing each request.</p>
+        <button id="newplan" class="btn" type="button">Create a puddle</button>
+      </div>
+      <div class="title"><h2>Your plans</h2><p>Stored on this browser</p></div>
+      <div id="ownlist" class="list"></div>
+      <div id="noown" class="empty"><b>Nothing hosted yet.</b>Your first plan can be as small as tea, two floor cushions, and four clear rules.</div>
+    </section>
+
+    <section id="chat" class="page" aria-labelledby="chattitle">
+      <div class="hero">
+        <p class="eyebrow"><i></i>Approval before address</p>
+        <h1 id="chattitle">Talk first.<br>Meet second.</h1>
+        <p class="lead">Confirm boundaries, arrival plans, and how everyone can leave comfortably.</p>
+      </div>
+      <div id="threadlist" class="form"></div>
+      <div id="nochat" class="empty"><b>No conversations yet.</b>Ask to join a puddle and the host thread will appear here.</div>
+    </section>
+
+    <section id="me" class="page" aria-labelledby="metitle">
+      <div class="hero">
+        <p class="eyebrow"><i></i>Your boundary card</p>
+        <h1 id="metitle">Say your yes.<br>Protect your no.</h1>
+        <p class="lead">This profile stays on your device in the prototype. A production app should encrypt it and reveal only what you choose.</p>
+      </div>
+      <form id="meform" class="form panel">
+        <div class="split">
+          <div class="field"><label for="mename">Display name</label><input id="mename" maxlength="28" placeholder="Your name" autocomplete="nickname"></div>
+          <div class="field"><label for="mepron">Pronouns</label><input id="mepron" maxlength="28" placeholder="Optional"></div>
+        </div>
+        <p class="label">Your default touch menu</p>
+        <label class="check"><input id="mehug" type="checkbox"><span><b>Hugs can be offered</b>I still want a fresh verbal yes each time.</span></label>
+        <label class="check"><input id="mehand" type="checkbox"><span><b>Hand holding can be offered</b>Never assumed from another yes.</span></label>
+        <label class="check"><input id="melean" type="checkbox"><span><b>Shoulder leaning can be offered</b>I may change my mind at any time.</span></label>
+        <label class="check"><input id="mespoon" type="checkbox"><span><b>Spooning can be discussed</b>Only after explicit, specific agreement.</span></label>
+        <label class="check"><input id="mesober" type="checkbox"><span><b>Sober spaces only</b>Hide events that permit alcohol or drugs.</span></label>
+        <button class="btn wide" type="submit">Save boundary card</button>
+      </form>
+      <div class="panel">
+        <h3>Safety check-in</h3>
+        <p id="checktext">No check-in is scheduled.</p>
+        <div class="row wrap" style="margin-top:.75rem"><button id="checkdone" class="btn good off" type="button">I am safe</button><button id="sharelast" class="btn alt off" type="button">Share plan</button></div>
+      </div>
+      <div class="panel">
+        <h3>Prototype status</h3>
+        <p id="nettext">Local-only mode. Tabs on this browser sync with one another; strangers on other devices cannot see your posts.</p>
+      </div>
+      <div class="panel">
+        <h3>Reset</h3>
+        <p>Clear local plans, conversations, blocks, and consent preferences from this browser.</p>
+        <button id="reset" class="btn bad" type="button">Clear this prototype</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<nav id="nav" class="nav" aria-label="Main navigation">
+  <button id="gonear" class="on" type="button"><b>⌁</b><span>Nearby</span></button>
+  <button id="goplan" type="button"><b>＋</b><span>Host</span></button>
+  <button id="gochat" type="button"><b>◌</b><span>Chats</span></button>
+  <button id="gome" type="button"><b>♡</b><span>Me</span></button>
+</nav>
+
+<div id="veil" class="veil"></div>
+
+<aside id="placesheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="placetitle">
+  <div class="grab"></div>
+  <div class="sheethead"><div><h2 id="placetitle">Approximate location</h2><p>Device coordinates are rounded before local storage.</p></div><button class="close" type="button" aria-label="Close">×</button></div>
+  <div class="form">
+    <button id="usegeo" class="btn wide" type="button">Use my device location once</button>
+    <p class="label">Or preview a city</p>
+    <div class="split">
+      <button id="citysf" class="btn alt" type="button">San Francisco</button>
+      <button id="cityoak" class="btn alt" type="button">Oakland</button>
+      <button id="cityla" class="btn alt" type="button">Los Angeles</button>
+      <button id="cityny" class="btn alt" type="button">New York</button>
+      <button id="citysea" class="btn alt" type="button">Seattle</button>
+      <button id="cityaus" class="btn alt" type="button">Austin</button>
+    </div>
+    <p class="note">A production version should fuzz discovery coordinates on the server too—not merely hide an address in the interface.</p>
+  </div>
+</aside>
+
+<aside id="fitsheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="fittitle">
+  <div class="grab"></div>
+  <div class="sheethead"><div><h2 id="fittitle">Discovery radius</h2><p>Only approximate distance appears publicly.</p></div><button class="close" type="button" aria-label="Close">×</button></div>
+  <div class="form">
+    <div class="field"><label for="radius">Maximum distance</label><select id="radius"><option value="2">2 miles</option><option value="5">5 miles</option><option value="10">10 miles</option><option value="25">25 miles</option></select></div>
+    <label class="check"><input id="smallfit" type="checkbox"><span><b>Small groups</b>Show capacity of eight or fewer.</span></label>
+    <label class="check"><input id="homefit" type="checkbox"><span><b>Hide private homes</b>Show public or staffed places only.</span></label>
+    <button id="savefit" class="btn wide" type="button">Apply filters</button>
+  </div>
+</aside>
+
+<aside id="detail" class="sheet" role="dialog" aria-modal="true" aria-labelledby="detailtitle">
+  <div class="grab"></div>
+  <div class="sheethead"><div><p id="detailmark" class="eyebrow"><i></i>Demo host</p><h2 id="detailtitle">Puddle title</h2><p id="detailcopy">Description</p></div><button class="close" type="button" aria-label="Close">×</button></div>
+  <div class="host"><div id="detailava" class="avatar tone1"><span id="detailletter">M</span><i></i></div><div class="grow"><b id="detailhost">Host</b><p id="detailtrust">Demo profile · verification not real</p></div></div>
+  <div class="info">
+    <div class="stat"><small>When</small><b id="detailtime">Now</b></div>
+    <div class="stat"><small>Distance</small><b id="detaildist">0.4 mi</b></div>
+    <div class="stat"><small>Group</small><b id="detailgroup">4 of 8</b></div>
+    <div class="stat"><small>Place</small><b id="detailplace">Public studio</b></div>
+  </div>
+  <div class="panel"><h3>Touch menu</h3><p id="detailtouch">Hugs can be offered. Ask every time.</p></div>
+  <div class="panel"><h3>Host rules</h3><div class="rule"><b>✓</b><span id="rule1">Ask every time</span></div><div class="rule"><b>✓</b><span id="rule2">Sober space</span></div><div class="rule"><b>✓</b><span id="rule3">No photos</span></div></div>
+  <div class="panel"><h3>Location privacy</h3><p id="detailarea">Approximate neighborhood only. Exact address is hidden until approval.</p></div>
+  <button id="flag" class="btn bad wide" type="button">Report or hide this listing</button>
+  <div class="bar"><button id="share" class="btn alt" type="button">Share plan</button><button id="ask" class="btn" type="button">Ask to join</button></div>
+</aside>
+
+<aside id="joinsheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="jointitle">
+  <div class="grab"></div>
+  <div class="sheethead"><div><h2 id="jointitle">Ask to join</h2><p id="joincopy">The host sees your boundary card, not your exact location.</p></div><button class="close" type="button" aria-label="Close">×</button></div>
+  <form id="joinform" class="form">
+    <label class="check"><input id="joinage" type="checkbox" required><span><b>I confirm I am 18 or older.</b></span></label>
+    <label class="check"><input id="joinyes" type="checkbox" required><span><b>I agree to ask before each new kind of touch.</b>Anyone can pause, move, or leave without explanation.</span></label>
+    <label class="check"><input id="joinrule" type="checkbox" required><span><b>I read this host’s visible rules.</b>I will ask questions before accepting exact meeting details.</span></label>
+    <div class="field"><label for="joinnote">Message to host</label><textarea id="joinnote" maxlength="360" placeholder="Hi! My comfort level, arrival plan, or question is…"></textarea></div>
+    <div class="field"><label for="jointime">Safety check-in</label><select id="jointime"><option value="0">No timer</option><option value="30">30 minutes after arrival</option><option value="60" selected>1 hour after arrival</option><option value="90">90 minutes after arrival</option></select><small>The timer works only while this page remains open. Use a real trusted-contact tool for an actual meeting.</small></div>
+    <button class="btn wide" type="submit">Send request</button>
+  </form>
+</aside>
+
+<aside id="newsheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="newtitle">
+  <div class="grab"></div>
+  <div class="sheethead"><div><h2 id="newtitle">Host a puddle</h2><p>Publish boundaries before chemistry.</p></div><button class="close" type="button" aria-label="Close">×</button></div>
+  <form id="newform" class="form">
+    <div class="field"><label for="newname">Listing title</label><input id="newname" maxlength="54" required placeholder="Tea and floor cushions"></div>
+    <div class="split">
+      <div class="field"><label for="newtime">Starts</label><select id="newtime"><option value="0">Now</option><option value="15">In 15 minutes</option><option value="30">In 30 minutes</option><option value="60">In 1 hour</option><option value="120">In 2 hours</option></select></div>
+      <div class="field"><label for="newmax">Capacity</label><select id="newmax"><option value="4">4 people</option><option value="6" selected>6 people</option><option value="8">8 people</option><option value="12">12 people</option></select></div>
+    </div>
+    <div class="split">
+      <div class="field"><label for="newplace">Place type</label><select id="newplace"><option value="Public studio">Public studio</option><option value="Community room">Community room</option><option value="Public park">Public park</option><option value="Private home">Private home</option></select></div>
+      <div class="field"><label for="newarea">Broad area only</label><input id="newarea" maxlength="42" required placeholder="Mission area, not an address"></div>
+    </div>
+    <div class="field"><label for="newvibe">Vibe</label><select id="newvibe"><option value="Quiet and cozy">Quiet and cozy</option><option value="Warm and chatty">Warm and chatty</option><option value="Movie nest">Movie nest</option><option value="Somatic rest">Somatic rest</option></select></div>
+    <p class="label">Touch people may offer—never assume</p>
+    <div class="split">
+      <label class="check"><input id="newhug" type="checkbox" checked><span>Hugs</span></label>
+      <label class="check"><input id="newhand" type="checkbox"><span>Hand holding</span></label>
+      <label class="check"><input id="newlean" type="checkbox" checked><span>Shoulder leaning</span></label>
+      <label class="check"><input id="newspoon" type="checkbox"><span>Spooning discussion</span></label>
+    </div>
+    <p class="label">Required host rules</p>
+    <label class="check"><input id="newask" type="checkbox" checked disabled><span><b>Ask every time</b>Required by this prototype.</span></label>
+    <label class="check"><input id="newsober" type="checkbox" checked><span><b>Sober space</b>No alcohol or recreational drugs.</span></label>
+    <label class="check"><input id="newphoto" type="checkbox" checked><span><b>No photos</b>Unless every visible person opts in at that moment.</span></label>
+    <div class="field"><label for="newnote">What should guests know?</label><textarea id="newnote" maxlength="520" required placeholder="Accessibility, what to bring, pets, scents, quiet hours, exit plan…"></textarea></div>
+    <button class="btn wide" type="submit">Publish approximate listing</button>
+  </form>
+</aside>
+
+<aside id="talksheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="talktitle">
+  <div class="grab"></div>
+  <div class="sheethead"><div><p id="talkmark" class="eyebrow"><i></i>Demo conversation</p><h2 id="talktitle">Host</h2><p id="talksub">Exact location is still hidden.</p></div><button class="close" type="button" aria-label="Close">×</button></div>
+  <div id="msgs" class="msgs" aria-live="polite"></div>
+  <div class="row wrap" style="margin-bottom:.65rem"><button id="talkshare" class="pill" type="button">Share plan</button><button id="talksafe" class="pill good" type="button">I am safe</button></div>
+  <form id="talkform" class="talkform"><label class="sr" for="talkinput">Message</label><input id="talkinput" maxlength="420" autocomplete="off" placeholder="Ask about boundaries or arrival…"><button type="submit" aria-label="Send message">↑</button></form>
+</aside>
+
+<aside id="flagsheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="flagtitle">
+  <div class="grab"></div>
+  <div class="sheethead"><div><h2 id="flagtitle">Report or hide</h2><p>This local prototype cannot contact a trust team.</p></div><button class="close" type="button" aria-label="Close">×</button></div>
+  <form id="flagform" class="form">
+    <label class="check"><input type="radio" name="why" value="Boundary pressure" required><span>Boundary pressure or sexual framing</span></label>
+    <label class="check"><input type="radio" name="why" value="Unsafe location"><span>Unsafe or misleading location</span></label>
+    <label class="check"><input type="radio" name="why" value="Age concern"><span>Possible underage participant</span></label>
+    <label class="check"><input type="radio" name="why" value="Other"><span>Other safety concern</span></label>
+    <div class="field"><label for="flagtext">Private note</label><textarea id="flagtext" maxlength="500" placeholder="Stored only on this browser in the prototype."></textarea></div>
+    <button class="btn bad wide" type="submit">Hide listing on this browser</button>
+  </form>
+</aside>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div id="alert" class="alert" role="alertdialog" aria-modal="true" aria-labelledby="alerttitle"><div class="alertbox"><b id="alerttitle">Safety check-in</b><p id="alertcopy">Your check-in timer is due. Confirm you are safe or contact someone you trust.</p><button id="alertsafe" class="btn good wide" type="button">I am safe</button></div></div>
+
+<section id="plain" class="plain" aria-labelledby="plaintitle"><div class="plainmain"><p>Private notes</p><h1 id="plaintitle">Notes</h1><textarea aria-label="Private notes" placeholder="Write a note…"></textarea><button id="return" type="button">Return to previous page</button></div></section>
+
+<template id="cardmodel">
+  <article class="card">
+    <div class="row">
+      <div class="avatar tone1"><span class="letter">M</span><i></i></div>
+      <div class="grow"><div class="row"><h3 class="cardtitle grow">Title</h3><span class="when">Now</span></div><p class="meta">Host · distance · place</p></div>
+    </div>
+    <p class="copy">Description</p>
+    <div class="tags"><span class="tag taga"></span><span class="tag tagb"></span><span class="tag tagc"></span></div>
+    <div class="row foot"><div class="faces" aria-hidden="true"><span>●</span><span>●</span><span>●</span></div><span class="count">4 going</span><button class="see" type="button">View puddle</button></div>
+  </article>
+</template>
+
+<template id="threadmodel">
+  <button class="thread" type="button"><div class="avatar tone1"><span class="letter">M</span><i></i></div><div class="grow"><h3 class="threadtitle">Host</h3><p class="threadcopy">Latest message</p></div><time class="threadtime">now</time></button>
+</template>
+
+<template id="msgmodel"><div class="msg"></div></template>
+
+<script>
+;(function(){
+'use strict';
+
+var PUD = window.PUD = {};
+var D = document;
+var W = window;
+var K = 'pudstate';
+var C = 'puddle';
+var M = 1609.344;
+var MIN = 60000;
+var HOUR = 60 * MIN;
+
+PUD.el = function(id){ return D.getElementById(id) };
+PUD.all = function(q, root){ return Array.prototype.slice.call((root || D).querySelectorAll(q)) };
+PUD.cut = function(s, n){ s = String(s || '').trim(); return s.slice(0, n || 500) };
+PUD.num = function(n, alt){ n = Number(n); return isFinite(n) ? n : (alt || 0) };
+PUD.round = function(n, p){ p = Math.pow(10, p || 0); return Math.round(n * p) / p };
+PUD.clone = function(id){ return PUD.el(id).content.cloneNode(true).firstElementChild };
+PUD.clear = function(el){ while(el.firstChild){ el.removeChild(el.firstChild) } };
+PUD.wait = {};
+PUD.say = function(text){
+  var el = PUD.el('toast');
+  el.textContent = text;
+  el.classList.add('on');
+  clearTimeout(PUD.wait.toast);
+  PUD.wait.toast = setTimeout(function(){ el.classList.remove('on') }, 2900);
+};
+
+PUD.base = function(){
+  return {
+    ver:1,
+    seen:0,
+    place:{lat:37.77,lon:-122.42,label:'SF demo',mode:'demo'},
+    me:{name:'You',pron:'',hug:1,hand:0,lean:1,spoon:0,sober:1},
+    fit:{kind:'all',rad:5,small:0,home:0},
+    posts:[],
+    joins:{},
+    talk:{},
+    block:{},
+    check:{},
+    last:''
+  };
+};
+
+PUD.fix = function(s){
+  var b = PUD.base();
+  s = s && typeof s === 'object' ? s : {};
+  Object.keys(b).forEach(function(k){ if(s[k] === undefined){ s[k] = b[k] } });
+  Object.keys(b.me).forEach(function(k){ if(s.me[k] === undefined){ s.me[k] = b.me[k] } });
+  Object.keys(b.fit).forEach(function(k){ if(s.fit[k] === undefined){ s.fit[k] = b.fit[k] } });
+  Object.keys(b.place).forEach(function(k){ if(s.place[k] === undefined){ s.place[k] = b.place[k] } });
+  return s;
+};
+
+PUD.load = function(){
+  var s;
+  PUD.store = 1;
+  try{ s = JSON.parse(localStorage.getItem(K) || 'null') }catch(e){ s = null; PUD.store = 0 }
+  PUD.state = PUD.fix(s);
+  PUD.pos = {lat:PUD.state.place.lat,lon:PUD.state.place.lon};
+};
+
+PUD.save = function(){
+  try{ localStorage.setItem(K, JSON.stringify(PUD.state)); PUD.store = 1 }catch(e){ PUD.store = 0 }
+  if(PUD.net && PUD.net.send){ PUD.net.send() }
+};
+
+PUD.net = {};
+PUD.net.start = function(){
+  if(!('BroadcastChannel' in W)){ return }
+  try{
+    PUD.net.chan = new BroadcastChannel(C);
+    PUD.net.chan.onmessage = function(e){
+      if(!e.data || e.data.type !== 'save'){ return }
+      var was = JSON.stringify(PUD.state);
+      PUD.load();
+      if(was !== JSON.stringify(PUD.state)){ PUD.draw() }
+    };
+  }catch(e){}
+};
+PUD.net.send = function(){
+  try{ PUD.net.chan && PUD.net.chan.postMessage({type:'save',at:Date.now()}) }catch(e){}
+};
+W.addEventListener('storage', function(e){ if(e.key === K){ PUD.load(); PUD.draw() } });
+
+PUD.geo = {};
+PUD.geo.cities = {
+  citysf:{lat:37.7749,lon:-122.4194,label:'SF demo'},
+  cityoak:{lat:37.8044,lon:-122.2712,label:'Oakland demo'},
+  cityla:{lat:34.0522,lon:-118.2437,label:'LA demo'},
+  cityny:{lat:40.7128,lon:-74.0060,label:'NYC demo'},
+  citysea:{lat:47.6062,lon:-122.3321,label:'Seattle demo'},
+  cityaus:{lat:30.2672,lon:-97.7431,label:'Austin demo'}
+};
+PUD.geo.set = function(p, mode){
+  PUD.pos = {lat:p.lat,lon:p.lon};
+  PUD.state.place = {lat:PUD.round(p.lat,2),lon:PUD.round(p.lon,2),label:p.label || 'Near you',mode:mode || 'demo'};
+  PUD.save();
+  PUD.close();
+  PUD.draw();
+  PUD.say(mode === 'device' ? 'Using an approximate device location.' : 'Demo city changed.');
+};
+PUD.geo.pick = function(id){ PUD.geo.set(PUD.geo.cities[id], 'demo') };
+PUD.geo.use = function(done){
+  if(!navigator.geolocation){ PUD.say('Geolocation is not available here. Using demo mode.'); done && done(0); return }
+  PUD.say('Requesting location…');
+  navigator.geolocation.getCurrentPosition(function(p){
+    PUD.geo.set({lat:p.coords.latitude,lon:p.coords.longitude,label:'Near you'}, 'device');
+    done && done(1);
+  }, function(){
+    PUD.say('Location was unavailable. The demo still works.');
+    done && done(0);
+  }, {enableHighAccuracy:false,timeout:9000,maximumAge:300000});
+};
+
+PUD.dist = function(a, b){
+  var r = 6371000;
+  var p1 = a.lat * Math.PI / 180;
+  var p2 = b.lat * Math.PI / 180;
+  var dp = (b.lat - a.lat) * Math.PI / 180;
+  var dl = (b.lon - a.lon) * Math.PI / 180;
+  var q = Math.sin(dp/2) * Math.sin(dp/2) + Math.cos(p1) * Math.cos(p2) * Math.sin(dl/2) * Math.sin(dl/2);
+  return (2 * r * Math.atan2(Math.sqrt(q), Math.sqrt(1-q))) / M;
+};
+PUD.miles = function(n){ return (n < .1 ? '<0.1' : (n < 10 ? PUD.round(n,1) : Math.round(n))) + ' mi' };
+PUD.when = function(e){
+  var n = e.start - Date.now();
+  if(n < -2 * HOUR){ return 'Ended' }
+  if(n <= 8 * MIN){ return 'Now' }
+  if(n < HOUR){ return 'in ' + Math.max(1, Math.round(n / MIN)) + ' min' }
+  if(n < 4 * HOUR){ return 'in ' + PUD.round(n / HOUR, 1) + ' hr' }
+  return new Date(e.start).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+};
+PUD.ago = function(n){
+  var d = Date.now() - n;
+  if(d < MIN){ return 'now' }
+  if(d < HOUR){ return Math.floor(d / MIN) + 'm' }
+  if(d < 24 * HOUR){ return Math.floor(d / HOUR) + 'h' }
+  return Math.floor(d / (24 * HOUR)) + 'd';
+};
+PUD.initial = function(s){ s = PUD.cut(s,30); return (s.charAt(0) || 'P').toUpperCase() };
+PUD.tone = function(e){ return 'tone' + (((e.tone || 1) - 1) % 6 + 1) };
+
+PUD.seed = function(){
+  var p = PUD.pos || PUD.state.place;
+  var n = Date.now();
+  var raw = [
+    {id:'seed1',host:'Maya',tone:1,name:'Tea + floor cushions',gap:-4,lat:.0042,lon:-.0045,max:8,go:5,place:'Public studio',area:'Nearby studio district',vibe:'Quiet and cozy',touch:'Hugs and shoulder leaning may be offered. Ask every time.',rules:['Ask every time','Sober space','No photos'],note:'Tea, blankets, low light, and a five-minute boundaries circle before anyone settles in.'},
+    {id:'seed2',host:'Jules',tone:2,name:'Sunset blanket nest',gap:18,lat:.0078,lon:.0064,max:6,go:3,place:'Public park',area:'A public park near you',vibe:'Warm and chatty',touch:'Hugs and hand holding may be offered. No surprise touch.',rules:['Ask every time','Public place','Leave anytime'],note:'Bring a layer. We start with names, pronouns, and one clear yes/no/maybe round.'},
+    {id:'seed3',host:'Ari',tone:3,name:'Soft landing after work',gap:3,lat:-.013,lon:-.004,max:6,go:4,place:'Community room',area:'A staffed community space',vibe:'Somatic rest',touch:'Shoulder leaning may be offered. Quiet parallel rest is equally welcome.',rules:['Ask every time','Sober space','Low scent'],note:'A decompression hour: floor mats, breathing, tea, and plenty of personal space.'},
+    {id:'seed4',host:'Ren',tone:4,name:'Quiet platonic cuddle circle',gap:42,lat:-.017,lon:.013,max:8,go:6,place:'Private home',area:'Broad neighborhood only',vibe:'Quiet and cozy',touch:'Hugs, hand holding, and spooning may be discussed individually.',rules:['Ask every time','Sober space','Host approval'],note:'Shoes off, cats live here, and exact details are shared only after a short chat.'},
+    {id:'seed5',host:'Kai',tone:5,name:'Movie nest, low talking',gap:74,lat:.019,lon:.002,max:5,go:2,place:'Private home',area:'Broad neighborhood only',vibe:'Movie nest',touch:'Shoulder leaning may be offered. A no-touch seat is always kept open.',rules:['Ask every time','No photos','Quiet after start'],note:'Comfort movie, subtitles, snacks labeled for allergens, and no pressure to cuddle.'},
+    {id:'seed6',host:'Nia',tone:6,name:'Somatic rest hour',gap:112,lat:.011,lon:-.027,max:12,go:7,place:'Public studio',area:'A nearby wellness studio',vibe:'Somatic rest',touch:'Brief hugs may be offered at arrival and departure. Mat space is touch-free by default.',rules:['Ask every time','Sober space','Facilitated opening'],note:'Guided grounding first, then optional quiet connection in a staffed studio.'}
+  ];
+  return raw.map(function(e){
+    e.start = n + e.gap * MIN;
+    e.lat = p.lat + e.lat;
+    e.lon = p.lon + e.lon;
+    e.demo = 1;
+    e.sober = e.rules.indexOf('Sober space') >= 0 ? 1 : 0;
+    e.public = e.place !== 'Private home' ? 1 : 0;
+    return e;
+  });
+};
+PUD.posts = function(){ return PUD.seed().concat(PUD.state.posts || []) };
+PUD.find = function(id){
+  var a = PUD.posts();
+  for(var i=0;i<a.length;i+=1){ if(a[i].id === id){ return a[i] } }
+};
+PUD.near = function(){
+  var f = PUD.state.fit;
+  return PUD.posts().filter(function(e){
+    if(PUD.state.block[e.id]){ return false }
+    e.dist = PUD.dist(PUD.pos, e);
+    if(e.dist > f.rad){ return false }
+    if(f.small && e.max > 8){ return false }
+    if(f.home && !e.public){ return false }
+    if(PUD.state.me.sober && !e.sober){ return false }
+    if(f.kind === 'now' && PUD.when(e) !== 'Now'){ return false }
+    if(f.kind === 'pub' && !e.public){ return false }
+    if(f.kind === 'sob' && !e.sober){ return false }
+    if(f.kind === 'cal' && e.vibe.indexOf('Quiet') < 0 && e.vibe.indexOf('Somatic') < 0 && e.vibe.indexOf('Movie') < 0){ return false }
+    return true;
+  }).sort(function(a,b){
+    var an = PUD.when(a) === 'Now' ? 0 : 1;
+    var bn = PUD.when(b) === 'Now' ? 0 : 1;
+    return an - bn || a.dist - b.dist || a.start - b.start;
+  });
+};
+
+PUD.sheet = '';
+PUD.focus = null;
+PUD.open = function(id){
+  PUD.close();
+  PUD.sheet = id;
+  PUD.focus = D.activeElement;
+  PUD.el('veil').classList.add('on');
+  var s = PUD.el(id);
+  s.classList.add('on');
+  s.setAttribute('aria-hidden','false');
+  setTimeout(function(){
+    var f = s.querySelector('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled])');
+    f && f.focus();
+  }, 90);
+};
+PUD.close = function(){
+  PUD.all('.sheet.on').forEach(function(s){ s.classList.remove('on'); s.setAttribute('aria-hidden','true') });
+  PUD.el('veil').classList.remove('on');
+  PUD.sheet = '';
+  if(PUD.focus && PUD.focus.focus){ try{ PUD.focus.focus() }catch(e){} }
+};
+
+PUD.page = function(id){
+  ['near','plan','chat','me'].forEach(function(k){ PUD.el(k).classList.toggle('on', k === id) });
+  [['gonear','near'],['goplan','plan'],['gochat','chat'],['gome','me']].forEach(function(a){ PUD.el(a[0]).classList.toggle('on', a[1] === id) });
+  W.scrollTo(0,0);
+  PUD.draw();
+};
+
+PUD.card = function(e){
+  var el = PUD.clone('cardmodel');
+  var av = el.querySelector('.avatar');
+  av.className = 'avatar ' + PUD.tone(e);
+  el.querySelector('.letter').textContent = PUD.initial(e.host);
+  el.querySelector('.cardtitle').textContent = e.name;
+  el.querySelector('.when').textContent = PUD.when(e);
+  el.querySelector('.meta').textContent = (e.demo ? e.host + ' · demo host' : 'Hosted by ' + e.host) + ' · ' + PUD.miles(e.dist === undefined ? PUD.dist(PUD.pos,e) : e.dist) + ' · ' + e.place;
+  el.querySelector('.copy').textContent = e.note;
+  var tags = [e.vibe,e.sober ? 'Sober' : 'Check substances',e.public ? 'Public place' : 'Host approval'];
+  ['.taga','.tagb','.tagc'].forEach(function(q,i){ el.querySelector(q).textContent = tags[i] });
+  el.querySelector('.count').textContent = e.go + ' of ' + e.max;
+  var b = el.querySelector('.see');
+  b.pudkey = e.id;
+  if(PUD.state.joins[e.id]){ b.textContent = 'Requested' }
+  b.addEventListener('click', PUD.ui.view);
+  return el;
+};
+
+PUD.ui = {};
+PUD.ui.list = function(){
+  var a = PUD.near();
+  var box = PUD.el('list');
+  PUD.clear(box);
+  a.forEach(function(e){ box.appendChild(PUD.card(e)) });
+  PUD.el('count').textContent = a.length + (a.length === 1 ? ' puddle' : ' puddles');
+  PUD.el('noevent').classList.toggle('off', !!a.length);
+  PUD.el('livecopy').textContent = a.filter(function(e){ return PUD.when(e) === 'Now' }).length + ' puddles happening now near you';
+};
+PUD.ui.own = function(){
+  var box = PUD.el('ownlist');
+  PUD.clear(box);
+  var a = (PUD.state.posts || []).slice().sort(function(x,y){ return y.start - x.start });
+  a.forEach(function(e){ e.dist = PUD.dist(PUD.pos,e); box.appendChild(PUD.card(e)) });
+  PUD.el('noown').classList.toggle('off', !!a.length);
+};
+PUD.ui.radar = function(){
+  var a = PUD.near().slice(0,5);
+  for(var i=1;i<=5;i+=1){
+    var b = PUD.el('spot'+i);
+    var e = a[i-1];
+    b.classList.toggle('off', !e);
+    if(!e){ continue }
+    b.className = 'spot ' + ['one','two','three','four','five'][i-1] + ' ' + PUD.tone(e);
+    b.querySelector('span').textContent = PUD.initial(e.host);
+    b.querySelector('small').textContent = PUD.miles(e.dist);
+    b.pudkey = e.id;
+  }
+  PUD.el('radcopy').textContent = 'Within ' + PUD.state.fit.rad + ' miles';
+};
+PUD.ui.fit = function(){
+  var m = {all:'fitall',now:'fitnow',pub:'fitpub',sob:'fitsob',cal:'fitcal'};
+  Object.keys(m).forEach(function(k){ PUD.el(m[k]).classList.toggle('on', PUD.state.fit.kind === k) });
+  PUD.el('radius').value = String(PUD.state.fit.rad);
+  PUD.el('smallfit').checked = !!PUD.state.fit.small;
+  PUD.el('homefit').checked = !!PUD.state.fit.home;
+};
+PUD.ui.place = function(){ PUD.el('loctext').textContent = PUD.state.place.label };
+PUD.ui.me = function(){
+  var m = PUD.state.me;
+  PUD.el('mename').value = m.name || '';
+  PUD.el('mepron').value = m.pron || '';
+  ['hug','hand','lean','spoon','sober'].forEach(function(k){ PUD.el('me'+k).checked = !!m[k] });
+  PUD.el('nettext').textContent = PUD.store ? 'Local-only mode. Tabs on this browser sync with one another; strangers on other devices cannot see your posts.' : 'Session-only mode. This browser blocked local storage, so changes last only until this page closes.';
+};
+PUD.ui.check = function(){
+  var c = PUD.state.check || {};
+  var keys = Object.keys(c).filter(function(k){ return c[k] && c[k].due });
+  if(!keys.length){
+    PUD.el('checktext').textContent = 'No check-in is scheduled.';
+    PUD.el('checkdone').classList.add('off');
+    PUD.el('sharelast').classList.add('off');
+    return;
+  }
+  keys.sort(function(a,b){ return c[a].due - c[b].due });
+  var x = c[keys[0]];
+  var e = PUD.find(keys[0]);
+  var left = x.due - Date.now();
+  PUD.el('checktext').textContent = (e ? e.name + ': ' : '') + (left > 0 ? 'check in ' + Math.max(1,Math.ceil(left/MIN)) + ' min.' : 'check-in is due now.');
+  PUD.el('checkdone').classList.remove('off');
+  PUD.el('sharelast').classList.remove('off');
+  if(left <= 0 && !x.shown){
+    x.shown = 1;
+    PUD.save(1);
+    PUD.el('alert').classList.add('on');
+  }
+};
+PUD.ui.talks = function(){
+  var box = PUD.el('threadlist');
+  PUD.clear(box);
+  var a = Object.keys(PUD.state.talk || {}).map(function(k){ return PUD.state.talk[k] }).sort(function(x,y){ return y.last - x.last });
+  a.forEach(function(t){
+    var e = PUD.find(t.id) || {host:t.host,tone:t.tone || 1};
+    var el = PUD.clone('threadmodel');
+    var av = el.querySelector('.avatar');
+    av.className = 'avatar ' + PUD.tone(e);
+    el.querySelector('.letter').textContent = PUD.initial(t.host);
+    el.querySelector('.threadtitle').textContent = t.host + (t.demo ? ' · demo' : '');
+    var last = t.msgs[t.msgs.length-1];
+    el.querySelector('.threadcopy').textContent = last ? last.text : 'Request sent';
+    el.querySelector('.threadtime').textContent = PUD.ago(t.last);
+    el.pudkey = t.id;
+    el.addEventListener('click', PUD.ui.opentalk);
+    box.appendChild(el);
+  });
+  PUD.el('nochat').classList.toggle('off', !!a.length);
+};
+PUD.ui.view = function(e){ PUD.show(e.currentTarget.pudkey) };
+
+PUD.show = function(id){
+  var e = PUD.find(id);
+  if(!e){ PUD.say('That listing is no longer available.'); return }
+  PUD.now = id;
+  e.dist = PUD.dist(PUD.pos,e);
+  PUD.el('detailmark').lastChild.textContent = e.demo ? 'Demo host' : 'Local listing';
+  PUD.el('detailtitle').textContent = e.name;
+  PUD.el('detailcopy').textContent = e.note;
+  PUD.el('detailava').className = 'avatar ' + PUD.tone(e);
+  PUD.el('detailletter').textContent = PUD.initial(e.host);
+  PUD.el('detailhost').textContent = e.host + (e.pron ? ' · ' + e.pron : '');
+  PUD.el('detailtrust').textContent = e.demo ? 'Demo profile · verification is simulated' : 'Local profile · not identity verified';
+  PUD.el('detailtime').textContent = PUD.when(e);
+  PUD.el('detaildist').textContent = PUD.miles(e.dist);
+  PUD.el('detailgroup').textContent = e.go + ' of ' + e.max;
+  PUD.el('detailplace').textContent = e.place;
+  PUD.el('detailtouch').textContent = e.touch;
+  PUD.el('rule1').textContent = e.rules[0] || 'Ask every time';
+  PUD.el('rule2').textContent = e.rules[1] || 'Leave anytime';
+  PUD.el('rule3').textContent = e.rules[2] || 'No pressure';
+  PUD.el('detailarea').textContent = e.area + '. Exact address is hidden until host approval.';
+  PUD.el('ask').textContent = PUD.state.joins[id] ? 'Request sent' : (e.demo ? 'Ask demo host' : 'Ask to join');
+  PUD.el('ask').disabled = !!PUD.state.joins[id] || (!e.demo && e.host === PUD.state.me.name);
+  PUD.open('detail');
+};
+
+PUD.ui.ask = function(){
+  if(!PUD.now){ return }
+  PUD.el('joinage').checked = false;
+  PUD.el('joinyes').checked = false;
+  PUD.el('joinrule').checked = false;
+  PUD.el('joinnote').value = '';
+  PUD.el('jointime').value = '60';
+  PUD.open('joinsheet');
+};
+
+PUD.join = function(eve){
+  eve.preventDefault();
+  var e = PUD.find(PUD.now);
+  if(!e){ return }
+  var note = PUD.cut(PUD.el('joinnote').value,360);
+  var t = Date.now();
+  PUD.state.joins[e.id] = {at:t,note:note};
+  var hello = e.demo ? 'Thanks for reaching out. This is a simulated host reply. Before any real meeting, ask who is attending, confirm the exact venue, and share your plan with someone you trust.' : 'Join request sent. Use this thread to confirm boundaries and meeting details.';
+  PUD.state.talk[e.id] = {
+    id:e.id,host:e.host,tone:e.tone,demo:e.demo,last:t,
+    msgs:[
+      {from:'me',text:note || 'Hi! I read the visible rules and would like to join.',at:t},
+      {from:'host',text:hello,at:t+1}
+    ]
+  };
+  var mins = PUD.num(PUD.el('jointime').value,0);
+  if(mins){ PUD.state.check[e.id] = {due:e.start + mins * MIN,shown:0} }
+  PUD.state.last = e.id;
+  PUD.save();
+  PUD.close();
+  PUD.draw();
+  PUD.say(e.demo ? 'Demo request sent. A local chat was created.' : 'Request sent. Exact location remains hidden.');
+  PUD.page('chat');
+};
+
+PUD.ui.opentalk = function(e){ PUD.talk(e.currentTarget.pudkey) };
+PUD.talk = function(id){
+  var t = PUD.state.talk[id];
+  if(!t){ return }
+  PUD.nowtalk = id;
+  PUD.el('talkmark').lastChild.textContent = t.demo ? 'Demo conversation' : 'Local conversation';
+  PUD.el('talktitle').textContent = t.host;
+  PUD.el('talksub').textContent = 'Exact location is still hidden. Confirm before travel.';
+  PUD.ui.msgs();
+  PUD.open('talksheet');
+};
+PUD.ui.msgs = function(){
+  var t = PUD.state.talk[PUD.nowtalk];
+  var box = PUD.el('msgs');
+  PUD.clear(box);
+  if(!t){ return }
+  t.msgs.forEach(function(m){
+    var el = PUD.clone('msgmodel');
+    el.textContent = m.text;
+    if(m.from === 'me'){ el.classList.add('mine') }
+    box.appendChild(el);
+  });
+  setTimeout(function(){ box.scrollTop = box.scrollHeight },30);
+};
+PUD.send = function(eve){
+  eve.preventDefault();
+  var t = PUD.state.talk[PUD.nowtalk];
+  var inp = PUD.el('talkinput');
+  var text = PUD.cut(inp.value,420);
+  if(!t || !text){ return }
+  var n = Date.now();
+  t.msgs.push({from:'me',text:text,at:n});
+  t.last = n;
+  inp.value = '';
+  PUD.save();
+  PUD.ui.msgs();
+  PUD.ui.talks();
+  if(t.demo){
+    clearTimeout(PUD.wait.reply);
+    PUD.wait.reply = setTimeout(function(){
+      var x = PUD.state.talk[PUD.nowtalk];
+      if(!x){ return }
+      var a = [
+        'Good question. In a real app, treat every host claim as unverified until you confirm it independently.',
+        'For the demo: the public listing is the complete boundary summary. A real host should answer specifics before sharing an address.',
+        'That makes sense. You never owe anyone touch, an explanation, or a second meeting.',
+        'Please use a public first meeting and your own transportation plan. This reply is simulated.'
+      ];
+      x.msgs.push({from:'host',text:a[x.msgs.length % a.length],at:Date.now()});
+      x.last = Date.now();
+      PUD.save();
+      PUD.ui.msgs();
+      PUD.ui.talks();
+    },720);
+  }
+};
+
+PUD.new = function(eve){
+  eve.preventDefault();
+  var touch = [];
+  if(PUD.el('newhug').checked){ touch.push('hugs') }
+  if(PUD.el('newhand').checked){ touch.push('hand holding') }
+  if(PUD.el('newlean').checked){ touch.push('shoulder leaning') }
+  if(PUD.el('newspoon').checked){ touch.push('spooning discussion') }
+  if(!touch.length){ touch.push('no touch by default') }
+  var rules = ['Ask every time'];
+  if(PUD.el('newsober').checked){ rules.push('Sober space') }
+  if(PUD.el('newphoto').checked){ rules.push('No photos') }
+  while(rules.length < 3){ rules.push('Leave anytime') }
+  var e = {
+    id:'own' + Date.now(),
+    host:PUD.cut(PUD.state.me.name || 'You',28),
+    pron:PUD.cut(PUD.state.me.pron,28),
+    tone:1 + Math.floor(Math.random()*6),
+    name:PUD.cut(PUD.el('newname').value,54),
+    start:Date.now() + PUD.num(PUD.el('newtime').value,0) * MIN,
+    lat:PUD.round(PUD.pos.lat + (Math.random()-.5)*.006,4),
+    lon:PUD.round(PUD.pos.lon + (Math.random()-.5)*.006,4),
+    max:PUD.num(PUD.el('newmax').value,6),go:1,
+    place:PUD.el('newplace').value,
+    area:PUD.cut(PUD.el('newarea').value,42),
+    vibe:PUD.el('newvibe').value,
+    touch:(touch.join(', ') + ' may be offered. Every person asks each time.').replace(/^./,function(s){ return s.toUpperCase() }),
+    rules:rules,
+    note:PUD.cut(PUD.el('newnote').value,520),
+    demo:0,
+    sober:PUD.el('newsober').checked ? 1 : 0,
+    public:PUD.el('newplace').value === 'Private home' ? 0 : 1
+  };
+  PUD.state.posts.push(e);
+  PUD.save();
+  PUD.el('newform').reset();
+  PUD.el('newhug').checked = true;
+  PUD.el('newlean').checked = true;
+  PUD.el('newask').checked = true;
+  PUD.el('newsober').checked = true;
+  PUD.el('newphoto').checked = true;
+  PUD.close();
+  PUD.draw();
+  PUD.say('Approximate listing published on this browser.');
+  PUD.page('plan');
+};
+
+PUD.profile = function(eve){
+  eve.preventDefault();
+  var m = PUD.state.me;
+  m.name = PUD.cut(PUD.el('mename').value || 'You',28);
+  m.pron = PUD.cut(PUD.el('mepron').value,28);
+  ['hug','hand','lean','spoon','sober'].forEach(function(k){ m[k] = PUD.el('me'+k).checked ? 1 : 0 });
+  PUD.state.posts.forEach(function(e){ e.host = m.name; e.pron = m.pron });
+  PUD.save();
+  PUD.draw();
+  PUD.say('Boundary card saved locally.');
+};
+
+PUD.flag = function(eve){
+  eve.preventDefault();
+  if(!PUD.now){ return }
+  var pick = PUD.el('flagform').querySelector('input[name="why"]:checked');
+  if(!pick){ PUD.say('Choose a safety reason.'); return }
+  PUD.state.block[PUD.now] = {why:pick.value,note:PUD.cut(PUD.el('flagtext').value,500),at:Date.now()};
+  PUD.save();
+  PUD.el('flagform').reset();
+  PUD.close();
+  PUD.draw();
+  PUD.say('Listing hidden on this browser. No report was transmitted.');
+};
+
+PUD.share = function(id){
+  id = id || PUD.now || PUD.state.last;
+  var e = PUD.find(id);
+  if(!e){ PUD.say('No plan is selected.'); return }
+  var text = 'Puddle safety plan\n' + e.name + '\n' + PUD.when(e) + ' · ' + e.area + ' · ' + e.place + '\nHost: ' + e.host + '\nExact address not included. I will confirm it privately and check in afterward.';
+  if(navigator.share){
+    navigator.share({title:'My Puddle safety plan',text:text}).catch(function(){})
+  }else if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){ PUD.say('Safety plan copied.') },function(){ PUD.say('Could not copy the plan.') })
+  }else{
+    PUD.say('Sharing is unavailable in this browser.');
+  }
+};
+
+PUD.safe = function(){
+  PUD.state.check = {};
+  PUD.save();
+  PUD.el('alert').classList.remove('on');
+  PUD.draw();
+  PUD.say('Check-in marked safe.');
+};
+
+PUD.quick = function(){
+  PUD.close();
+  PUD.el('plain').classList.add('on');
+  D.title = 'Notes';
+  PUD.el('nav').classList.add('off');
+};
+PUD.back = function(){
+  PUD.el('plain').classList.remove('on');
+  D.title = 'Puddle';
+  PUD.el('nav').classList.remove('off');
+};
+
+PUD.draw = function(){
+  PUD.ui.place();
+  PUD.ui.fit();
+  PUD.ui.list();
+  PUD.ui.radar();
+  PUD.ui.own();
+  PUD.ui.talks();
+  PUD.ui.me();
+  PUD.ui.check();
+};
+
+PUD.bind = function(){
+  PUD.el('veil').addEventListener('click', PUD.close);
+  PUD.all('.close').forEach(function(b){ b.addEventListener('click',PUD.close) });
+  PUD.el('loc').addEventListener('click',function(){ PUD.open('placesheet') });
+  PUD.el('usegeo').addEventListener('click',function(){ PUD.geo.use() });
+  Object.keys(PUD.geo.cities).forEach(function(id){ PUD.el(id).addEventListener('click',function(){ PUD.geo.pick(id) }) });
+  PUD.el('morefit').addEventListener('click',function(){ PUD.open('fitsheet') });
+  PUD.el('savefit').addEventListener('click',function(){
+    PUD.state.fit.rad = PUD.num(PUD.el('radius').value,5);
+    PUD.state.fit.small = PUD.el('smallfit').checked ? 1 : 0;
+    PUD.state.fit.home = PUD.el('homefit').checked ? 1 : 0;
+    PUD.save(); PUD.close(); PUD.draw();
+  });
+  var fit = {fitall:'all',fitnow:'now',fitpub:'pub',fitsob:'sob',fitcal:'cal'};
+  Object.keys(fit).forEach(function(id){ PUD.el(id).addEventListener('click',function(){ PUD.state.fit.kind = fit[id]; PUD.save(); PUD.draw() }) });
+  [['gonear','near'],['goplan','plan'],['gochat','chat'],['gome','me']].forEach(function(a){ PUD.el(a[0]).addEventListener('click',function(){ PUD.page(a[1]) }) });
+  ['newtop','newplan'].forEach(function(id){ PUD.el(id).addEventListener('click',function(){ PUD.open('newsheet') }) });
+  PUD.el('newform').addEventListener('submit',PUD.new);
+  PUD.el('meform').addEventListener('submit',PUD.profile);
+  PUD.el('ask').addEventListener('click',PUD.ui.ask);
+  PUD.el('joinform').addEventListener('submit',PUD.join);
+  PUD.el('flag').addEventListener('click',function(){ PUD.open('flagsheet') });
+  PUD.el('flagform').addEventListener('submit',PUD.flag);
+  PUD.el('share').addEventListener('click',function(){ PUD.share() });
+  PUD.el('sharelast').addEventListener('click',function(){ PUD.share(PUD.state.last) });
+  PUD.el('talkshare').addEventListener('click',function(){ PUD.share(PUD.nowtalk) });
+  PUD.el('talkform').addEventListener('submit',PUD.send);
+  PUD.el('talksafe').addEventListener('click',PUD.safe);
+  PUD.el('checkdone').addEventListener('click',PUD.safe);
+  PUD.el('alertsafe').addEventListener('click',PUD.safe);
+  PUD.el('quick').addEventListener('click',PUD.quick);
+  PUD.el('return').addEventListener('click',PUD.back);
+  PUD.el('reset').addEventListener('click',function(){
+    if(!W.confirm('Clear all Puddle prototype data from this browser?')){ return }
+    try{ localStorage.removeItem(K) }catch(e){}
+    PUD.state = PUD.base(); PUD.pos = {lat:PUD.state.place.lat,lon:PUD.state.place.lon};
+    PUD.save(); PUD.draw(); PUD.el('gate').classList.remove('off'); PUD.el('nav').classList.add('off');
+  });
+  for(var i=1;i<=5;i+=1){ PUD.el('spot'+i).addEventListener('click',function(e){ PUD.show(e.currentTarget.pudkey) }) }
+  D.addEventListener('keydown',function(e){
+    if(e.key === 'Escape'){
+      if(PUD.el('plain').classList.contains('on')){ PUD.back() }
+      else if(PUD.sheet){ PUD.close() }
+    }
+  });
+};
+
+PUD.gate = function(){
+  var ok = PUD.el('ageok').checked && PUD.el('yesok').checked && PUD.el('locok').checked;
+  PUD.el('enter').disabled = !ok;
+  PUD.el('demo').disabled = !ok;
+};
+PUD.enter = function(mode){
+  PUD.state.seen = 1;
+  PUD.save();
+  PUD.el('gate').classList.add('off');
+  PUD.el('nav').classList.remove('off');
+  if(mode === 'device'){
+    PUD.geo.use(function(ok){ if(!ok){ PUD.draw() } });
+  }else{ PUD.draw() }
+};
+PUD.start = function(){
+  PUD.load();
+  PUD.net.start();
+  PUD.bind();
+  ['ageok','yesok','locok'].forEach(function(id){ PUD.el(id).addEventListener('change',PUD.gate) });
+  PUD.el('enter').addEventListener('click',function(){ PUD.enter('device') });
+  PUD.el('demo').addEventListener('click',function(){ PUD.enter('demo') });
+  if(PUD.state.seen){ PUD.el('gate').classList.add('off'); PUD.el('nav').classList.remove('off') }
+  else{ PUD.el('nav').classList.add('off') }
+  PUD.draw();
+  setInterval(PUD.ui.check,30000);
+};
+
+PUD.start();
+}());
+</script>
+</body>
+</html>
