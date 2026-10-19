@@ -1,4 +1,4 @@
-// This browser's own draft: every answer, private ones included. Only shared answers ever leave (see data/act.js).
+// This browser's own draft. When you share, every answered question goes to the group; skipped ones never leave.
 var APP = window.APP || (window.APP = {});
 
 ;(function(){
@@ -12,7 +12,7 @@ KEEP.slot = APP.test ? 'veiltest' : 'veil';
 
 KEEP.blank = function(me){
   me = {id:'', in:0, name:'', sent:0, rooms:{}, ans:{}};
-  ASK.list.forEach(q => { me.ans[q.key] = {text:'', share:!!q.share} });
+  ASK.list.forEach(q => { me.ans[q.key] = {text:''} });
   return me;
 };
 
@@ -21,7 +21,7 @@ KEEP.load = function(raw, me){
   me = KEEP.blank();
   if(!raw || 'object' !== typeof raw){ return me }
   me.id = raw.id || ''; me.in = raw.in || 0; me.name = raw.name || ''; me.sent = raw.sent || 0; me.rooms = raw.rooms || {};
-  ASK.list.forEach(q => { Object.assign(me.ans[q.key], (raw.ans || {})[q.key]) });
+  ASK.list.forEach(q => { me.ans[q.key].text = String(((raw.ans || {})[q.key] || {}).text || '') });
   return me;
 };
 
@@ -38,7 +38,6 @@ KEEP.wipe = function(was){
 KEEP.put = function(key, ans){
   if(!ans || !APP.me.ans[key]){ return }
   if('string' === typeof ans.text){ APP.me.ans[key].text = ans.text.slice(0, 4000) }
-  if('boolean' === typeof ans.share){ APP.me.ans[key].share = ans.share }
   KEEP.save();
 };
 

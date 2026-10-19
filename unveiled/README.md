@@ -21,7 +21,7 @@ Then open http://localhost:8077.
 
 - **Password → key.** The password is stretched with `SEA.work` (PBKDF2, 250,000 rounds) into the group key. Only that derived key is kept in the browser, never the password. A SHA-256 hash of the key names the group's place under the root, so nobody can find it without the password.
 - **Encrypted cards.** Each person's shared answers are encrypted with the group key before leaving the phone. The relay only ever sees `SEA{…}` ciphertext.
-- **Private answers never leave the device.** That includes skipped answers and anything toggled private. Only shared answers are uploaded.
+- **Answered = shared, skipped = private.** There are no per-question toggles: every answered question is shared with the group, and skipped questions never leave the device.
 - **Nobody can change your card.** Each browser quietly makes its own signing key pair. Cards are written to that key's signed space (`~pub`), so GUN peers reject anyone else's writes. You can edit or delete your card only from the browser you shared it from.
 - **Limits of a shared password.** Anyone who has the password can read every shared answer, and anyone can copy the encrypted data from the public relay and try guessing passwords offline. Use a long passphrase (4–5 random words) and share it only in person or in a private chat.
 
@@ -31,7 +31,7 @@ Then open http://localhost:8077.
 | --- | --- |
 | `ask.js` | **All questionnaire copy.** Edit the words here. |
 | `index.html` | Shell. Each screen gets a fresh frame. |
-| `app/keep.js` | Your full draft (private answers included) and the test/real switch |
+| `app/keep.js` | Your draft and the test/real switch |
 | `app/view.js` | Screen transitions and back-swipe history |
 | `app/flow.js` | What each screen receives, and what each action does |
 | `app/group.js` | The single door to group data |

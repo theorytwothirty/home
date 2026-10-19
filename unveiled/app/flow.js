@@ -17,7 +17,7 @@ page.card = function(spot, q, a){
     hold: q.hold, text: a.text, dark: !!q.dark, edit: !!spot.edit};
 };
 page.look = () => ({name: me().name, sent: !!me().sent, list: ASK.list.map((q, i) => ({
-  i: i, key: q.key, mark: q.mark, word: q.word, text: me().ans[q.key].text, share: me().ans[q.key].share, deep: !!q.dark }))});
+  i: i, key: q.key, mark: q.mark, word: q.word, text: me().ans[q.key].text, deep: !!q.dark }))});
 // the gallery opens at once with whoever is already known; the rest arrive as 'person' events
 page.all = (spot, room) => {
   if(!me().in || !me().sent){ return null }
@@ -50,7 +50,6 @@ go.deep = () => show({at:'card', i:ASK.core.length});
 go.look = () => show({at:'look'});
 go.edit = d => show({at:'card', i:d.i, edit:1});
 go.rename = () => show({at:'name', edit:1});
-go.share = d => APP.keep.put(d.key, {share: !!d.share});
 go.send = async () => {
   if(!me().in){ return show({at:'pass', edit:1}) }
   try{ await APP.grp.send(me()) }catch(err){ return kit.say({err:'We couldn’t share your answers. Please try again.'}, 'oops', APP.view.el) }

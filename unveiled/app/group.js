@@ -21,8 +21,11 @@ GRP.join = async function(pass, got){
   return got;
 };
 
+// answered = shared: every non-empty answer goes; skipped ones stay on this device
+GRP.out = (ans, out) => { out = {}; for(var k in ans){ out[k] = {text: ans[k].text, share: !!ans[k].text.trim()} } return out };
+
 GRP.send = async function(me, got){
-  got = await GRP.ask({do:'put', name:me.name, ans:me.ans});
+  got = await GRP.ask({do:'put', name:me.name, ans:GRP.out(me.ans)});
   me.id = got.id; me.sent = Date.now();
   (me.rooms = me.rooms || {})[me.in] = me.sent;
   APP.keep.save();

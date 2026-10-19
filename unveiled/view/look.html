@@ -13,9 +13,9 @@
   <p class="kick sect">After Dark</p>
   <div class="deck" id="deep"></div>
   <div class="pile seal">
-    <p class="fine">Toggle what the group can see. Private answers never leave your phone.</p>
+    <p class="fine">Everything you answered will be shared with the group. Skipped questions stay private and never leave your phone — tap Edit to change or clear an answer.</p>
     <button class="link swap" id="swap">Use a different group password</button>
-    <label class="tick"><input type="checkbox" id="ok"><span>I understand that the answers I’ve chosen to share will be visible to other members of this group.</span></label>
+    <label class="tick"><input type="checkbox" id="ok"><span>I understand that my answers will be visible to other members of this group.</span></label>
     <p class="fine wine" id="oops" hidden></p>
   </div>
   <div class="bar">
@@ -29,8 +29,7 @@
     <div class="side ends"><div class="side"><span class="mark" name="mark"></span><span class="kick" name="word"></span></div>
       <button class="link edit">Edit</button></div>
     <p class="text" name="text"></p>
-    <p class="text nil">Skipped — nothing to share.</p>
-    <label class="flip"><input type="checkbox"><span class="no">Private</span><span class="yes">Shared with the group</span></label>
+    <p class="text nil">Skipped — stays private.</p>
   </article>
 </template>
 
@@ -45,7 +44,7 @@
 .text { font-family: var(--serif); font-size: 1.2rem; line-height: 1.4; white-space: pre-wrap; display: -webkit-box;
   -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .text.nil { display: none; font-style: italic; color: var(--soft); }
-.item.skip .text.nil { display: block; } .item.skip .flip { opacity: 0.45; }
+.item.skip .text.nil { display: block; }
 .seal { gap: 0.5rem; padding-top: 1.5rem; }
 .swap { justify-self: start; padding-left: 0; }
 </style>
@@ -61,11 +60,9 @@ kit.createServer(function(req, res){
 });
 
 var LOOK = {};
-LOOK.row = function(a, el, box){
+LOOK.row = function(a, el){
   el = kit.bind(model.content.firstElementChild.cloneNode(true), {mark: a.mark, word: a.word, text: a.text.trim() || null});
   el.tag('skip', a.text.trim() ? -1 : 1);
-  box = el.all('input')[0]; box.checked = !!a.share;
-  box.onchange = () => kit.say({to:'share', key: a.key, share: box.checked}, 'go');
   el.all('.edit')[0].onclick = () => kit.say({to:'edit', i: a.i}, 'go');
   (a.deep ? deep : core).pin(el);
 };
