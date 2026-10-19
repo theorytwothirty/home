@@ -53,10 +53,14 @@ Then open http://localhost:8077.
   - delete works
 - `test/forge.js`: run `npm i gun@0.2020.1241 && node test/forge.js <room> <pub>`. A second, unrelated client tries to overwrite someone's card and must be refused.
 
-## Putting it online
+## Where it lives
 
-It's static files, so any static host works. GitHub Pages is the simplest:
+The app is served at **https://tamarastupalova.com/unveiled/**, straight from this `unveiled/` folder of the `home` repo via GitHub Pages. Pushing to `main` deploys it within about a minute. Phones may keep an old copy for up to 10 minutes.
 
-1. Push this folder to a GitHub repo.
-2. Go to Settings → Pages → *Deploy from a branch* → `main`, root.
-3. Share `https://<you>.github.io/<repo>/`. That URL uses the real `unveiled` root. Add `?test` to try it against the test root.
+- Real group: https://tamarastupalova.com/unveiled/
+- Test group (with the four fictional people): https://tamarastupalova.com/unveiled/?test
+- Privacy test: https://tamarastupalova.com/unveiled/test/api.html (expect `PASS`)
+
+To work on it locally, serve this folder (`python3 -m http.server 8077` from `unveiled/`) and open http://localhost:8077. That uses the test group.
+
+It used to live in `theorytwothirty/unveiled`, now archived.
